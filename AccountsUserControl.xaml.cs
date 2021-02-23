@@ -19,7 +19,7 @@ namespace SpecklePopup
   /// </summary>
   public partial class AccountsUserControl : UserControl
   {
-    private string _defaultServer = "https://hestia.speckle.works/api/v1";
+    private string _defaultServer = "https://ireland.speckle.arup.com/api";
     private List<string> existingServers = new List<string>();
     private List<string> existingServers_fullDetails = new List<string>();
     internal ObservableCollection<Account> accounts = new ObservableCollection<Account>();

@@ -220,7 +220,7 @@
           VerticalAlignment="Top"
           FontSize="10"
           Foreground="Gray"
-          Text="Input below the server url you want to log in or register at. Remember, it needs to be a valid url, ie: https://hestia.speckle.works."
+          Text="Input below the server url you want to log in or register at. Remember, it needs to be a valid url, ie: https://ireland.speckle.arup.com ."
           TextWrapping="Wrap" />
         <TextBox
           Name="serverUrlButton"
