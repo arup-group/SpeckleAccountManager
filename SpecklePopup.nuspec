@@ -1,19 +1,18 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>$id$</id>
+    <id>SpecCxPopup</id>
     <version>$version$</version>
     <title>$title$</title>
-    <authors>Speckle</authors>
+    <authors>speccx</authors>
     <owners>$author$</owners>
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/speckleworks/SpeckleCore</projectUrl>
-    <iconUrl>https://avatars2.githubusercontent.com/u/31284874</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Annoying popup that allows you to choose or create a Speckle Account.</description>
+    <description>Annoying popup that allows you to choose or create an Account (community edition).</description>
     <releaseNotes></releaseNotes>
     <copyright>$copyright$</copyright>
-    <tags>speckle popup accountmanager account</tags>
+    <tags>cx popup accountmanager account</tags>
     <dependencies>
       <dependency id="SpeckleCore" version="1.6.8" />
     </dependencies>

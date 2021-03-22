@@ -7,10 +7,10 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SpecklePopup")]
-[assembly: AssemblyDescription("Annoying popup that allows you to choose or create a Speckle Account.")]
+[assembly: AssemblyTitle("SpecCxPopup")]
+[assembly: AssemblyDescription("Annoying popup that allows you to choose or create an Account (community edition).")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("https://speckle.works")]
+[assembly: AssemblyCompany("speccx")]
 [assembly: AssemblyProduct("SpecklePopup")]
 [assembly: AssemblyCopyright("Copyright © 2019 Project Contributors. Licensed under the MIT license.")]
 [assembly: AssemblyTrademark("")]
