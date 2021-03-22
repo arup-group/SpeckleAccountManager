@@ -102,198 +102,200 @@
       </StackPanel>
     </DataTemplate>
   </Window.Resources>
-  <Grid>
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="Auto" />
-      <ColumnDefinition Width="*" />
-    </Grid.ColumnDefinitions>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="*" />
-    </Grid.RowDefinitions>
-
-    <Image
-      Grid.Row="0"
-      Grid.Column="0"
-      Margin="35,15,5,6"
-      HorizontalAlignment="Right"
-      VerticalAlignment="Bottom"
-      Source="Resources/speckle60x50.png"
-      Stretch="None" />
-    <Label
-      Grid.Column="1"
-      VerticalAlignment="Bottom"
-      Content="Speckle"
-      FontFamily="Segoe UI Light"
-      FontSize="36" />
-    <Label
-      Grid.Row="1"
-      Grid.Column="1"
-      Content="the open source data platform for AEC."
-      FontSize="10"
-      Foreground="Gray" />
-
-
-    <Grid
-      Grid.Row="2"
-      Grid.ColumnSpan="2"
-      Margin="20,0,20,20"
-      Visibility="{Binding Path=showMainLogin, Converter={StaticResource BoolToCollapsed}}">
-      <Grid.RowDefinitions>
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
-      </Grid.RowDefinitions>
-      <!--  DEFAULT ACCOUNT  -->
-      <StackPanel Grid.Row="0">
-        <Label
-          Margin="0,10"
-          HorizontalAlignment="Center"
-          HorizontalContentAlignment="Stretch"
-          Content="Default Account"
-          FontSize="22" />
-        <TextBlock
-          Margin="5"
-          FontSize="10"
-          Foreground="Gray"
-          TextWrapping="Wrap">
-          Default account used when creating a new sender or receiver.
-          If not set you'll be prompted each time.&#32;<Hyperlink
-            Click="ClearDefaultAccount"
-            Cursor="Hand"
-            Foreground="#FF0074FF">
-            Clear default account
-          </Hyperlink>
-          .</TextBlock>
-
-        <ComboBox
-          Name="defaultAccountBox"
-          Grid.Row="2"
-          Margin="0"
-          ItemTemplate="{StaticResource SpeckleAccountTemplateSimple}"
-          ItemsSource="{Binding accounts}"
-          SelectionChanged="DefaultAccountBox_SelectionChanged" />
-      </StackPanel>
-
-      <Grid Grid.Row="1" Visibility="{Binding Path=hasAccounts, Converter={StaticResource BoolToCollapsed}}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
           <RowDefinition Height="Auto" />
           <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!--  EXISTING ACCOUTS  -->
-        <Label
+        <Image
           Grid.Row="0"
-          Margin="0,10"
-          HorizontalAlignment="Center"
-          HorizontalContentAlignment="Stretch"
-          Content="Existing Accounts"
-          FontSize="22" />
-
-        <ListView
-          x:Name="AccountListBox"
+          Grid.Column="0"
+          Margin="35,15,5,6"
+          HorizontalAlignment="Right"
+          VerticalAlignment="Bottom"
+          Source="Resources/speckle60x50.png"
+          Stretch="None" />
+        <Label
+          Grid.Column="1"
+          VerticalAlignment="Bottom"
+          Content="Speckle"
+          FontFamily="Segoe UI Light"
+          FontSize="36" />
+        <Label
           Grid.Row="1"
-          VerticalAlignment="Top"
-          HorizontalContentAlignment="Stretch"
-          x:FieldModifier="public"
-          BorderThickness="0"
-          ItemTemplate="{StaticResource SpeckleAccountTemplate}"
-          ItemsSource="{Binding accounts}"
-          MouseDoubleClick="AccountListBox_MouseDoubleClick"
-          ScrollViewer.CanContentScroll="False"
-          SelectionChanged="AccountListBox_SelectionChanged" />
-      </Grid>
-      <!--  NEW ACCOUNT  -->
-      <StackPanel Grid.Row="2">
-        <Label
-          Grid.Row="5"
-          Margin="0,10"
-          HorizontalAlignment="Center"
-          Content="New Account"
-          FontSize="22" />
-        <TextBlock
-          Grid.Row="6"
-          Height="39"
-          Margin="0,5"
-          HorizontalAlignment="Center"
-          VerticalAlignment="Top"
-          FontSize="10"
-          Foreground="Gray"
-          Text="Input below the server url you want to log in or register at. Remember, it needs to be a valid url, ie: https://hestia.speckle.works."
-          TextWrapping="Wrap" />
-        <TextBox
-          Name="serverUrlButton"
-          Grid.Row="7"
-          Height="26"
-          Margin="0,5,0,0"
-          FontSize="16"
-          Text="{Binding defaultServer, Mode=TwoWay}"
-          TextAlignment="Center"
-          TextChanged="serverUrlTextChanged"
-          TextWrapping="Wrap" />
-        <Label
-          Name="ValidationLabel"
-          Grid.Row="8"
-          Height="26"
-          HorizontalAlignment="Center"
-          VerticalAlignment="Top"
-          Background="White"
-          Content="{Binding errorMessage, Mode=TwoWay}"
+          Grid.Column="1"
+          Content="the open source data platform for AEC."
           FontSize="10"
           Foreground="Gray" />
-        <Button
-          Grid.Row="9"
-          Height="45"
-          Margin="0,0,0,0"
-          HorizontalAlignment="Stretch"
-          Background="#FF0074FF"
-          Click="SignInClick"
-          Content="Add new account"
-          FontSize="16"
-          Foreground="White"
-          IsEnabled="{Binding isCorrectUrl}" />
-        <TextBlock
-          Margin="5,10,5,5"
-          FontSize="10"
-          Foreground="Gray"
-          TextWrapping="Wrap">
-          Issues with the redirect?&#32;<Hyperlink
-            Click="ManuallyAddAccountClick"
-            Cursor="Hand"
-            Foreground="#FF0074FF">
-            Manually add the account
-          </Hyperlink>
-          using the connection string.</TextBlock>
-      </StackPanel>
-
-    </Grid>
-
-    <!--  SUCCESS  -->
-    <StackPanel
-      Grid.Row="2"
-      Grid.ColumnSpan="2"
-      Margin="20"
-      Visibility="{Binding Path=showSigninsuccess, Converter={StaticResource BoolToCollapsed}, FallbackValue=Collapsed}">
-      <Label
-        Content="You've signed in succesfuly."
-        FontFamily="Segoe UI Light"
-        FontSize="24" />
-      <Label
-        Margin="20,49,20,0"
-        Content="Your new account is ready to use.&#10;Double click it (in the account list) to select it."
-        FontFamily="Segoe UI Light"
-        FontSize="16" />
-      <Button
-        Margin="20,50,20,20"
-        Background="#FF0074FF"
-        BorderBrush="#00707070"
-        Click="ReturnToMain"
-        Content="Back"
-        FontSize="16"
-        Foreground="White" />
-    </StackPanel>
 
 
-  </Grid>
+        <Grid
+          Grid.Row="2"
+          Grid.ColumnSpan="2"
+          Margin="20,0,20,20"
+          Visibility="{Binding Path=showMainLogin, Converter={StaticResource BoolToCollapsed}}">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+          </Grid.RowDefinitions>
+          <!--  DEFAULT ACCOUNT  -->
+          <StackPanel Grid.Row="0">
+            <Label
+              Margin="0,10"
+              HorizontalAlignment="Center"
+              HorizontalContentAlignment="Stretch"
+              Content="Default Account"
+              FontSize="22" />
+            <TextBlock
+              Margin="5"
+              FontSize="10"
+              Foreground="Gray"
+              TextWrapping="Wrap">
+              Default account used when creating a new sender or receiver.
+              If not set you'll be prompted each time.&#32;<Hyperlink
+                Click="ClearDefaultAccount"
+                Cursor="Hand"
+                Foreground="#FF0074FF">
+                Clear default account
+              </Hyperlink>
+              .</TextBlock>
+
+            <ComboBox
+              Name="defaultAccountBox"
+              Grid.Row="2"
+              Margin="0"
+              ItemTemplate="{StaticResource SpeckleAccountTemplateSimple}"
+              ItemsSource="{Binding accounts}"
+              SelectionChanged="DefaultAccountBox_SelectionChanged" />
+          </StackPanel>
+
+          <Grid Grid.Row="1" Visibility="{Binding Path=hasAccounts, Converter={StaticResource BoolToCollapsed}}">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto" />
+              <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!--  EXISTING ACCOUTS  -->
+            <Label
+              Grid.Row="0"
+              Margin="0,10"
+              HorizontalAlignment="Center"
+              HorizontalContentAlignment="Stretch"
+              Content="Existing Accounts"
+              FontSize="22" />
+
+            <ListView
+              x:Name="AccountListBox"
+              Grid.Row="1"
+              VerticalAlignment="Top"
+              HorizontalContentAlignment="Stretch"
+              x:FieldModifier="public"
+              BorderThickness="0"
+              ItemTemplate="{StaticResource SpeckleAccountTemplate}"
+              ItemsSource="{Binding accounts}"
+              MouseDoubleClick="AccountListBox_MouseDoubleClick"
+              ScrollViewer.CanContentScroll="False"
+              SelectionChanged="AccountListBox_SelectionChanged" />
+          </Grid>
+          <!--  NEW ACCOUNT  -->
+          <StackPanel Grid.Row="2">
+            <Label
+              Grid.Row="5"
+              Margin="0,10"
+              HorizontalAlignment="Center"
+              Content="New Account"
+              FontSize="22" />
+            <TextBlock
+              Grid.Row="6"
+              Height="39"
+              Margin="0,5"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Top"
+              FontSize="10"
+              Foreground="Gray"
+              Text="Input below the server url you want to log in or register at. Remember, it needs to be a valid url, ie: https://ireland.speckle.arup.com ."
+              TextWrapping="Wrap" />
+            <TextBox
+              Name="serverUrlButton"
+              Grid.Row="7"
+              Height="26"
+              Margin="0,5,0,0"
+              FontSize="16"
+              Text="{Binding defaultServer, Mode=TwoWay}"
+              TextAlignment="Center"
+              TextChanged="serverUrlTextChanged"
+              TextWrapping="Wrap" />
+            <Label
+              Name="ValidationLabel"
+              Grid.Row="8"
+              Height="26"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Top"
+              Background="White"
+              Content="{Binding errorMessage, Mode=TwoWay}"
+              FontSize="10"
+              Foreground="Gray" />
+            <Button
+              Grid.Row="9"
+              Height="45"
+              Margin="0,0,0,0"
+              HorizontalAlignment="Stretch"
+              Background="#FF0074FF"
+              Click="SignInClick"
+              Content="Add new account"
+              FontSize="16"
+              Foreground="White"
+              IsEnabled="{Binding isCorrectUrl}" />
+            <TextBlock
+              Margin="5,10,5,5"
+              FontSize="10"
+              Foreground="Gray"
+              TextWrapping="Wrap">
+              Issues with the redirect?&#32;<Hyperlink
+                Click="ManuallyAddAccountClick"
+                Cursor="Hand"
+                Foreground="#FF0074FF">
+                Manually add the account
+              </Hyperlink>
+              using the connection string.</TextBlock>
+          </StackPanel>
+
+        </Grid>
+
+        <!--  SUCCESS  -->
+        <StackPanel
+          Grid.Row="2"
+          Grid.ColumnSpan="2"
+          Margin="20"
+          Visibility="{Binding Path=showSigninsuccess, Converter={StaticResource BoolToCollapsed}, FallbackValue=Collapsed}">
+          <Label
+            Content="You've signed in succesfuly."
+            FontFamily="Segoe UI Light"
+            FontSize="24" />
+          <Label
+            Margin="20,49,20,0"
+            Content="Your new account is ready to use.&#10;Double click it (in the account list) to select it."
+            FontFamily="Segoe UI Light"
+            FontSize="16" />
+          <Button
+            Margin="20,50,20,20"
+            Background="#FF0074FF"
+            BorderBrush="#00707070"
+            Click="ReturnToMain"
+            Content="Back"
+            FontSize="16"
+            Foreground="White" />
+        </StackPanel>
+
+
+      </Grid>
+    </ScrollViewer>
 </Window>
