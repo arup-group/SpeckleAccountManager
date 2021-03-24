@@ -2,26 +2,51 @@ name: .NET
 
 on: 
   push:
-    tags:
-      - '*'
+    tags: 'v*.*.*.*-cx'
 
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v2
-
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+             
+    - name: Setup NuGet.exe for use with actions
+      # You may pin to the exact commit or the version.
+      # uses: NuGet/setup-nuget@04b0c2b8d1b97922f67eca497d7cf0bf17b8ffe1
+      uses: NuGet/setup-nuget@v1.0.5
       with:
-        dotnet-version: 5.0.x
+        # NuGet API Key to configure.
+        nuget-api-key: ${{ secrets.SPECKLE_NUGET_AUTH_TOKEN }}
 
-    - name: Build solution and generate NuGet package
-      run: dotnet pack -c Release -o out -p:PackageVersion=${GITHUB_REF##*/}
-      working-directory: SpeckleAccountManager
+    - name: Get version from tag
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'    
+      run: |
+        echo $env:GITHUB_REF
+        $env:GITHUB_REF -match "refs/tags/v(?<content>.*)-cx"
+        $SPECKLE_VERSION = $matches["content"]
+        echo "::set-env name=SPECKLE_VERSION::$SPECKLE_VERSION" 
+      # github action syntax for setting variables ^
 
+    - name: Restore dependencies
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+      run: nuget restore SpecklePopup.sln
+
+    - name: Setup msbuild
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+      uses: microsoft/setup-msbuild@v1.0.1
+
+    - name: Build solution
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+      run: msbuild SpecklePopup.sln -p:Configuration=Release
+
+    - name: Generate NuGet package
+      run: nuget pack SpecklePopup.csproj -Version $env:SPECKLE_VERSION -Verbosity detailed -Properties Configuration=Release
+      
     - name: Push generated package to GitHub registry
-      run: dotnet nuget push ./*.nupkg --skip-duplicate --api-key ${{ secrets.SPECKLE_NUGET_AUTH_TOKEN }} --source https://api.nuget.org/v3/index.json
-      working-directory: SpeckleAccountManager/out
+      run: nuget push *.nupkg -SkipDuplicate -ApiKey ${{ secrets.SPECKLE_NUGET_AUTH_TOKEN }} -Source https://api.nuget.org/v3/index.json     
