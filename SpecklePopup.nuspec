@@ -7,14 +7,14 @@
     <authors>speccx</authors>
     <owners>$author$</owners>
     <license type="expression">MIT</license>
-    <projectUrl>https://github.com/speckleworks/SpeckleCore</projectUrl>
+    <projectUrl>https://github.com/arup-group/SpeckleAccountManager</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Annoying popup that allows you to choose or create an Account (community edition).</description>
     <releaseNotes></releaseNotes>
     <copyright>$copyright$</copyright>
     <tags>cx popup accountmanager account</tags>
     <dependencies>
-      <dependency id="SpeckleCore" version="1.6.8" />
+      <dependency id="SpecCxCore" version="1.0.0" />
     </dependencies>
   </metadata>
 </package>
