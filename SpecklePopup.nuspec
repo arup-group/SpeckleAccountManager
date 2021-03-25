@@ -4,7 +4,7 @@
     <id>SpecCxPopup</id>
     <version>$version$</version>
     <title>$title$</title>
-    <authors>speccx</authors>
+    <authors>SpecCx</authors>
     <owners>$author$</owners>
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/arup-group/SpeckleAccountManager</projectUrl>

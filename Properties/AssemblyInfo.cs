@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyTitle("SpecCxPopup")]
 [assembly: AssemblyDescription("Annoying popup that allows you to choose or create an Account (community edition).")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("speccx")]
+[assembly: AssemblyCompany("SpecCx")]
 [assembly: AssemblyProduct("SpecklePopup")]
 [assembly: AssemblyCopyright("Copyright © 2019 Project Contributors. Licensed under the MIT license.")]
 [assembly: AssemblyTrademark("")]
