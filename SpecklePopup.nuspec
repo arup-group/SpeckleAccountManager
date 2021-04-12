@@ -14,7 +14,7 @@
     <copyright>$copyright$</copyright>
     <tags>cx popup accountmanager account</tags>
     <dependencies>
-      <dependency id="SpecCxCore" version="1.0.0" />
+      <dependency id="SpecCxCore" version="1.2.1" />
     </dependencies>
   </metadata>
 </package>
